@@ -33,11 +33,13 @@ import { renderSignatureResults } from "./lib/signature-panel";
 import { assessDeviceName, matchesDeviceListFilter } from "./lib/device-hints";
 import type { DeviceListFilter } from "./lib/device-hints";
 import { buildBluetoothRequest } from "./lib/bluetooth-scan";
+import { buildSignalRequest, matchesGlassesName } from "./lib/glasses-signals";
 import type { BluetoothRequestOptions, ScanScope } from "./lib/bluetooth-scan";
 import { getBrowserSupport } from "./lib/browser-support";
 import {
   easyCard,
   emptyMeta,
+  hintLabel,
   parseSaved,
   PREP_LABELS,
   STORAGE_KEY,
@@ -48,7 +50,9 @@ type Page = "wireless" | "optical" | "guide" | "zones" | "records";
 type BrowserDevice = { id: string; name?: string };
 type BluetoothNavigator = Navigator & {
   bluetooth?: {
-    requestDevice(options: BluetoothRequestOptions): Promise<BrowserDevice>;
+    requestDevice(
+      options: BluetoothRequestOptions | ReturnType<typeof buildSignalRequest>,
+    ): Promise<BrowserDevice>;
   };
 };
 const $ = <T extends HTMLElement = HTMLElement>(selector: string) =>
@@ -220,6 +224,7 @@ $("#app").innerHTML = `
         <section id="easy-scan" class="easy-only">
           <article class="panel easy-panel"><h2>이렇게 찾아요</h2>
             <ol class="easy-how"><li>아래 버튼을 누르면 <strong>기기 목록 창</strong>이 떠요.</li><li>확인할 기기를 <strong>하나 골라 ‘페어링’</strong>을 누르세요.</li><li>고른 기기가 아래에 <strong>카드</strong>로 기록돼요.</li></ol>
+            <p class="easy-note">‘안경 종류만 찾기’는 <strong>이름</strong>과 <strong>제조사 번호</strong>를 함께 봐요. 이름을 바꿔도 제조사 번호가 같으면 목록에 떠요.</p>
             <div class="easy-actions"><button class="button primary easy-big" id="easy-scan-glasses"><span>안경 종류만 찾기</span><small>먼저 이 버튼부터</small></button><button class="button secondary easy-big" id="easy-scan-all"><span>모든 기기 보기</span><small>목록이 비어 있을 때</small></button></div>
             <p id="easy-scan-message" role="status"></p>
             <p class="easy-note">앱은 기기에 접속하지 않고 이름만 기록해요. 목록이 비어 있어도 ‘전자기기가 없다’는 뜻은 아니에요.</p>
@@ -530,9 +535,25 @@ $("#scan-button").addEventListener("click", async () => {
   renderScan();
   try {
     // No GATT connection, identity guess, manufacturer claim, or fabricated RSSI.
-    const device = await bluetooth!.requestDevice(
-      buildBluetoothRequest(scopeAtRequest),
-    );
+    let device: BrowserDevice;
+    if (scopeAtRequest === "glasses-plus") {
+      try {
+        device = await bluetooth!.requestDevice(buildSignalRequest());
+      } catch (error) {
+        // 번호 필터를 모르는 구형 브라우저는 형식 오류(TypeError)를 냅니다 → 이름 단서만으로 다시 엽니다
+        if (!(error instanceof TypeError)) throw error;
+        device = await bluetooth!.requestDevice(
+          buildBluetoothRequest("glasses"),
+        );
+      }
+    } else
+      device = await bluetooth!.requestDevice(
+        buildBluetoothRequest(scopeAtRequest),
+      );
+    // 번호 단서 검색에서 골랐는데 이름 단서에는 안 걸리면 → 제조사·서비스 번호로 목록에 뜬 기기
+    const bySignal =
+      scopeAtRequest === "glasses-plus" &&
+      !matchesGlassesName(device.name ?? "");
     if (generation !== sessionGeneration) return;
     const now = new Date().toISOString();
     const existing = devices.find((d) => d.id === deviceKeys.get(device.id));
@@ -543,6 +564,7 @@ $("#scan-button").addEventListener("click", async () => {
       );
       existing.lastSelectedAt = now;
       existing.selections++;
+      if (bySignal) existing.signal = true;
       toast("같은 기기의 선택 시각을 갱신했습니다.");
       easyNotice = "이미 기록한 기기예요. 시각만 새로 고쳤어요.";
     } else {
@@ -556,6 +578,7 @@ $("#scan-button").addEventListener("click", async () => {
         zone: zoneAtRequest,
         disposition: "unreviewed",
         preparation: preparationAtRequest,
+        ...(bySignal ? { signal: true } : {}),
       };
       deviceKeys.set(device.id, record.id);
       devices.push(record);
@@ -575,7 +598,7 @@ $("#scan-button").addEventListener("click", async () => {
     const name = error instanceof Error ? error.name : "";
     easyNotice =
       name === "NotFoundError"
-        ? scopeAtRequest === "glasses"
+        ? scopeAtRequest !== "all"
           ? "고른 기기가 없어요. 목록이 비어 있었다면 ‘모든 기기 보기’로 다시 찾아보세요."
           : "고른 기기가 없어요. 목록이 비어 있어도 전자기기가 없다는 뜻은 아니에요."
         : name === "NotAllowedError" || name === "SecurityError"
@@ -1159,13 +1182,25 @@ function syncEasy(page: Page) {
 }
 function setStep(step: number, focus = true) {
   easyStep = Math.min(4, Math.max(1, step));
-  navigate(easyStep <= 2 ? "wireless" : easyStep === 3 ? "optical" : "records", focus);
+  navigate(
+    easyStep <= 2 ? "wireless" : easyStep === 3 ? "optical" : "records",
+    focus,
+  );
 }
 const EASY_TITLES: [string, string][] = [
   ["먼저 3가지를 확인하세요", "하나씩 눌러 체크하면 다음으로 넘어가요."],
-  ["켜져 있는 기기를 찾아요", "걷은 뒤에도 켜져 있는 블루투스 기기를 확인합니다."],
-  ["안경을 가까이 살펴봐요", "교탁에 놓인 안경만 비추세요. 사람 얼굴은 찍지 않습니다."],
-  ["기록을 남겨요", "확인한 사실만 적습니다. 최종 판단은 기관 절차에 따릅니다."],
+  [
+    "켜져 있는 기기를 찾아요",
+    "걷은 뒤에도 켜져 있는 블루투스 기기를 확인합니다.",
+  ],
+  [
+    "안경을 가까이 살펴봐요",
+    "교탁에 놓인 안경만 비추세요. 사람 얼굴은 찍지 않습니다.",
+  ],
+  [
+    "기록을 남겨요",
+    "확인한 사실만 적습니다. 최종 판단은 기관 절차에 따릅니다.",
+  ],
 ];
 function renderEasy() {
   const easy = uiMode === "easy";
@@ -1210,7 +1245,8 @@ function renderEasy() {
   $("#easy-next-hint").textContent =
     easyStep === 1 && !ready ? "위 3가지를 모두 체크하면 넘어갈 수 있어요" : "";
   // 2단계: 찾기 버튼과 안내
-  const blocked = pendingBluetooth || (!demo && (!bluetoothSupported || !ready));
+  const blocked =
+    pendingBluetooth || (!demo && (!bluetoothSupported || !ready));
   $<HTMLButtonElement>("#easy-scan-glasses").disabled = blocked;
   $<HTMLButtonElement>("#easy-scan-all").disabled = blocked;
   $("#easy-scan-message").textContent = pendingBluetooth
@@ -1241,7 +1277,9 @@ function renderEasy() {
                 ([value, label]) =>
                   `<button data-easy-disposition="${value}" data-id="${d.id}" aria-pressed="${d.disposition === value}">${label}</button>`,
               )
-              .join("")}</div><label>확인한 곳 <select data-easy-zone="${d.id}" aria-label="${esc(d.name)} 확인한 곳">${zoneOptions(d.zone)}</select></label></article>`,
+              .join(
+                "",
+              )}</div><label>확인한 곳 <select data-easy-zone="${d.id}" aria-label="${esc(d.name)} 확인한 곳">${zoneOptions(d.zone)}</select></label></article>`,
         )
         .join("")}</div>`
     : '<div class="easy-empty">아직 기록한 기기가 없어요.</div>';
@@ -1249,7 +1287,12 @@ function renderEasy() {
 $$("[data-easy-step]").forEach((button) =>
   button.addEventListener("click", () => {
     const step = Number(button.dataset.easyStep);
-    if (step > 1 && mode !== "demo" && !preflight.every(Boolean) && easyStep === 1)
+    if (
+      step > 1 &&
+      mode !== "demo" &&
+      !preflight.every(Boolean) &&
+      easyStep === 1
+    )
       return toast("1단계의 3가지를 먼저 체크해 주세요.");
     setStep(step);
   }),
@@ -1269,7 +1312,9 @@ $("#ui-toggle").addEventListener("click", () => {
 // ── 시연: 블루투스·안경 없이 가상 예시로 4단계를 끝까지 눌러봅니다 ──
 function addDemoDevices(names: string[]) {
   const now = new Date().toISOString();
-  const fresh = names.filter((name) => !devices.some((d) => d.source === "demo" && d.name === name));
+  const fresh = names.filter(
+    (name) => !devices.some((d) => d.source === "demo" && d.name === name),
+  );
   devices.push(
     ...fresh.map((name): DeviceRecord => ({
       id: crypto.randomUUID(),
@@ -1318,7 +1363,7 @@ $("#easy-demo-end").addEventListener("click", endDemo);
 function easyScan(scope: ScanScope) {
   if (mode === "demo")
     return addDemoDevices(
-      scope === "glasses"
+      scope !== "all"
         ? ["Ray-Ban Meta · 가상 예시"]
         : ["AirPods Pro · 가상 예시", "이름 없는 기기 · 가상 예시"],
     );
@@ -1327,10 +1372,14 @@ function easyScan(scope: ScanScope) {
   renderScan();
   $("#scan-button").click();
 }
-$("#easy-scan-glasses").addEventListener("click", () => easyScan("glasses"));
+$("#easy-scan-glasses").addEventListener("click", () =>
+  easyScan("glasses-plus"),
+);
 $("#easy-scan-all").addEventListener("click", () => easyScan("all"));
 $("#easy-device-cards").addEventListener("click", (event) => {
-  const button = (event.target as Element).closest<HTMLElement>("[data-easy-disposition]");
+  const button = (event.target as Element).closest<HTMLElement>(
+    "[data-easy-disposition]",
+  );
   const record = devices.find((d) => d.id === button?.dataset.id);
   if (!button || !record) return;
   const value = button.dataset.easyDisposition as Disposition;
@@ -1347,7 +1396,11 @@ $("#easy-device-cards").addEventListener("change", (event) => {
 });
 
 // ── 4단계: 기록지(인쇄·PDF)와 엑셀용 파일 ──
-const metaInputs = { exam: "#meta-exam", room: "#meta-room", proctor: "#meta-proctor" } as const;
+const metaInputs = {
+  exam: "#meta-exam",
+  room: "#meta-room",
+  proctor: "#meta-proctor",
+} as const;
 (Object.keys(metaInputs) as (keyof typeof metaInputs)[]).forEach((key) =>
   $<HTMLInputElement>(metaInputs[key]).addEventListener("input", (event) => {
     meta[key] = (event.target as HTMLInputElement).value.slice(0, 60);
@@ -1360,17 +1413,23 @@ printSheet.setAttribute("aria-hidden", "true");
 document.body.append(printSheet);
 function buildSheet() {
   const demo = mode === "demo";
-  const stamp = (iso: string) => new Date(iso).toLocaleString("ko-KR", { hour12: false });
-  const shownDevices = devices.filter((d) => (demo ? true : d.source !== "demo"));
-  const shownInspections = inspections.filter((i) => (demo ? true : i.source !== "demo"));
-  const blank = '<tr><td colspan="6" style="text-align:center">기록 없음</td></tr>';
+  const stamp = (iso: string) =>
+    new Date(iso).toLocaleString("ko-KR", { hour12: false });
+  const shownDevices = devices.filter((d) =>
+    demo ? true : d.source !== "demo",
+  );
+  const shownInspections = inspections.filter((i) =>
+    demo ? true : i.source !== "demo",
+  );
+  const blank =
+    '<tr><td colspan="6" style="text-align:center">기록 없음</td></tr>';
   printSheet.innerHTML = `${demo ? '<p class="demo-mark">시연용 예시 · 실제 점검 기록이 아닙니다</p>' : ""}
     <h1>스마트안경 점검 기록지</h1>
     <table><tbody><tr><th>시험명</th><td>${esc(meta.exam)}</td><th>시험실</th><td>${esc(meta.room)}</td></tr><tr><th>감독위원</th><td>${esc(meta.proctor)}</td><th>작성 시각</th><td>${stamp(new Date().toISOString())}</td></tr></tbody></table>
     <h2>1. 점검 전 준비</h2>
     <table><tbody><tr>${PREP_LABELS.map((label, i) => `<td>${preflight[i] ? "☑" : "☐"} ${label}</td>`).join("")}</tr></tbody></table>
     <h2>2. 확인한 기기 (${shownDevices.length}건)</h2>
-    <table><thead><tr><th>번호</th><th>기록 시각</th><th>기기 이름</th><th>판단 단서</th><th>확인한 곳</th><th>확인 상태</th></tr></thead><tbody>${shownDevices.map((d, i) => `<tr><td>${i + 1}</td><td>${stamp(d.lastSelectedAt)}</td><td>${esc(d.name)}</td><td>${assessDeviceName(d.name).label}</td><td>${d.zone}</td><td>${DISPOSITIONS[d.disposition]}</td></tr>`).join("") || blank}</tbody></table>
+    <table><thead><tr><th>번호</th><th>기록 시각</th><th>기기 이름</th><th>판단 단서</th><th>확인한 곳</th><th>확인 상태</th></tr></thead><tbody>${shownDevices.map((d, i) => `<tr><td>${i + 1}</td><td>${stamp(d.lastSelectedAt)}</td><td>${esc(d.name)}</td><td>${hintLabel(d)}</td><td>${d.zone}</td><td>${DISPOSITIONS[d.disposition]}</td></tr>`).join("") || blank}</tbody></table>
     <h2>3. 안경 관찰 기록 (${shownInspections.length}건)</h2>
     <table><thead><tr><th>번호</th><th>기록 시각</th><th>확인한 곳</th><th>방법</th><th colspan="2">관찰한 특징</th></tr></thead><tbody>${shownInspections.map((i, n) => `<tr><td>${n + 1}</td><td>${stamp(i.createdAt)}</td><td>${i.zone}</td><td>${i.source === "demo" ? "연습용 그림" : i.source === "camera" ? "카메라" : "사진"}</td><td colspan="2">${esc(i.observations.join(" / ") || "관찰 항목 없음 (정상 판정 아님)")}</td></tr>`).join("") || blank}</tbody></table>
     <p class="note">※ 이 기록지는 관찰한 사실을 적은 참고 자료입니다. 부정행위 여부와 소지자 확인은 시험 주관기관의 절차에 따릅니다.<br>※ 기기 이름은 기기가 스스로 알린 값이며, 바꿀 수 있고 소유자 정보가 아닙니다.</p>
@@ -1381,9 +1440,12 @@ $("#print-sheet-button").addEventListener("click", () => {
   window.print();
 });
 $("#export-csv").addEventListener("click", () => {
-  const blob = new Blob([toCsv(meta, preflight, devices, inspections, mode === "demo")], {
-    type: "text/csv;charset=utf-8",
-  });
+  const blob = new Blob(
+    [toCsv(meta, preflight, devices, inspections, mode === "demo")],
+    {
+      type: "text/csv;charset=utf-8",
+    },
+  );
   const url = URL.createObjectURL(blob),
     link = document.createElement("a");
   link.href = url;
@@ -1395,7 +1457,7 @@ $("#export-csv").addEventListener("click", () => {
 $("#easy-json").addEventListener("click", () => $("#export-report").click());
 $("#easy-help").addEventListener("click", () =>
   openDialog(
-    `<h2 id="dialog-title">이렇게 쓰세요</h2><ol class="help-steps"><li><strong>준비</strong><p>휴대전화 끄기 · 전자기기 걷기 · 허용 장비 확인을 체크합니다.</p></li><li><strong>기기 찾기</strong><p>버튼을 누르고 목록에서 기기를 하나 고르면 카드로 기록됩니다.</p></li><li><strong>안경 보기</strong><p>의심되는 안경은 교탁에 놓고 카메라로 살펴보거나 도감과 비교합니다.</p></li><li><strong>기록</strong><p>기록지를 인쇄하거나 엑셀용 파일로 받습니다.</p></li></ol><div class="dialog-note"><strong>카드 색의 뜻</strong><p>빨강: 스마트안경일 수 있음 · 노랑: 어떤 기기인지 모름 · 회색: 안경이 아닌 전자기기 이름 · 초록: 확인 끝</p><strong>꼭 알아 두세요</strong><p>교실 전체를 자동으로 훑지 못합니다. 목록에서 고른 기기만 기록합니다.<br>전원이 꺼진 안경은 목록에 나오지 않습니다. 눈으로 하는 확인이 기본입니다.<br>이 도구는 판정하지 않습니다. 최종 판단은 기관 절차에 따릅니다.</p></div><button class="button secondary small" data-browser-help>기기별로 여는 방법 ${icon("arrow")}</button><p class="tiny">원본: <a class="text-button" href="${repository}" target="_blank" rel="noopener noreferrer">ExamGuard (epoko77-ai, MIT 라이선스)</a> · 쉬운 화면을 덧붙인 수정본입니다.</p>`,
+    `<h2 id="dialog-title">이렇게 쓰세요</h2><ol class="help-steps"><li><strong>준비</strong><p>휴대전화 끄기 · 전자기기 걷기 · 허용 장비 확인을 체크합니다.</p></li><li><strong>기기 찾기</strong><p>버튼을 누르고 목록에서 기기를 하나 고르면 카드로 기록됩니다.</p></li><li><strong>안경 보기</strong><p>의심되는 안경은 교탁에 놓고 카메라로 살펴보거나 도감과 비교합니다.</p></li><li><strong>기록</strong><p>기록지를 인쇄하거나 엑셀용 파일로 받습니다.</p></li></ol><div class="dialog-note"><strong>카드 색의 뜻</strong><p>빨강: 스마트안경일 수 있음 (이름 또는 제조사 번호) · 노랑: 어떤 기기인지 모름 · 회색: 안경이 아닌 전자기기 이름 · 초록: 확인 끝</p><strong>꼭 알아 두세요</strong><p>교실 전체를 자동으로 훑지 못합니다. 목록에서 고른 기기만 기록합니다.<br>전원이 꺼진 안경은 목록에 나오지 않습니다. 눈으로 하는 확인이 기본입니다.<br>이 도구는 판정하지 않습니다. 최종 판단은 기관 절차에 따릅니다.</p></div><button class="button secondary small" data-browser-help>기기별로 여는 방법 ${icon("arrow")}</button><p class="tiny">원본: <a class="text-button" href="${repository}" target="_blank" rel="noopener noreferrer">ExamGuard (epoko77-ai, MIT 라이선스)</a> · 쉬운 화면을 덧붙인 수정본입니다.</p>`,
   ),
 );
 

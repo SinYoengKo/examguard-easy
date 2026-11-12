@@ -18,6 +18,24 @@
 | 회색 | 안경이 아닌 전자기기 이름 | 전원·수거 여부 확인 |
 | 초록 | 확인 끝 | 없음 |
 
+### 이름을 바꾼 기기는 어떻게 찾나
+
+‘안경 종류만 찾기’는 **이름**과 함께 **제조사 번호·서비스 번호**도 봅니다. 이 번호는 기기 이름을 바꿔도 그대로라서, 이름이 달라도 목록 창에 뜹니다. 이렇게 고른 기기는 빨강 카드에 **“안경 제조사 신호와 같아요”** 라고 표시됩니다.
+
+| 번호 | 종류 | 대상 | 겹칠 수 있는 것 |
+| --- | --- | --- | --- |
+| `0x01AB` | 제조사 | Meta (Ray-Ban Meta 등) | Meta의 다른 제품(Quest 등) |
+| `0x058E` | 제조사 | Meta Platforms Technologies | 위와 같음 |
+| `0x0D53` | 제조사 | Luxottica (Ray-Ban Meta, Oakley Meta) | Luxottica의 다른 블루투스 제품 |
+| `0x03C2` | 제조사 | Snap (Spectacles) | Snap의 다른 블루투스 제품 |
+| `0xFD5F` | 서비스 | Meta(Oculus) 서비스 | Meta의 VR 기기 |
+| `7905fff0-b5ce-4e99-a40f-4b1e122d00d0` | 서비스 | HeyCyan 앱 계열 보급형 카메라 안경 | 출처 1곳 |
+
+- **일부러 뺀 번호:** `0x05D6`(Jieli). 범용 칩 제조사라 저가 이어폰·스피커가 대량으로 걸립니다.
+- **번호가 없는 기종:** Even G1, XREAL, HUAWEI, Mijia, Rokid 등은 공개된 근거를 찾지 못해 이름으로만 찾습니다.
+- **출처:** 공개 프로젝트 Nearby Glasses, SquachWatch, ZuckOff, banrays가 공개한 값입니다. **이 도구에서 실기기로 직접 검증한 값이 아닙니다.** 목록과 출처 주소는 `src/lib/glasses-signals.ts`에 있습니다.
+- **그래도 못 찾는 경우:** 한 공개 분석(banrays)에 따르면 Ray-Ban Meta는 전원을 켤 때와 페어링할 때만 신호가 잡혔고, 휴대전화와 연결해 쓰는 중에는 잡히지 않았습니다. 번호 단서가 있어도 **눈으로 하는 확인이 기본**입니다.
+
 ### 어떤 기기로 여나
 
 | 기기 | 브라우저 | 기기 찾기(2단계) | 안경 보기·기록 |
@@ -83,6 +101,7 @@
 | --- | --- |
 | 카드 설명 문구 바꾸기 | `src/lib/easy.ts` 의 `easyCard` |
 | 준비 3가지 이름 바꾸기 | `src/lib/easy.ts` 의 `PREP_LABELS` (기록지·CSV용), 화면 글자는 `src/main.ts` 의 `preflight-grid` |
+| 제조사·서비스 번호 추가·삭제 | `src/lib/glasses-signals.ts` 의 `GLASSES_SIGNALS` (출처 주소 필수) |
 | 새 안경 기종 이름 추가 | `device-hints.ts` 의 `glassesNames` + `bluetooth-scan.ts` 의 `namePrefixes` (둘 다) |
 | 기록지 양식 바꾸기 | `src/main.ts` 의 `buildSheet`, 모양은 `src/easy.css` 의 `@media print` |
 
@@ -108,4 +127,5 @@
 | --- | --- |
 | 시험장에서 수험자 주변 기기를 블루투스로 확인해도 되는 근거 | 공단 공식 절차가 아니므로 본부·소관 부서 검토 필요 |
 | 실제 스마트안경에서의 탐지 여부 | 실기기 검증 없음 (원본 포함) |
+| 제조사·서비스 번호의 정확성 | 공개 프로젝트 값을 모은 것. Bluetooth SIG 원문·실기기 대조 필요 |
 | 아이폰(Safari)·실제 안드로이드 기기 동작 | 이 수정본은 PC용 Chrome 자동 테스트로만 확인 |

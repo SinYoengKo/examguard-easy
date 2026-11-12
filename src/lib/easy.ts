@@ -19,8 +19,18 @@ export interface EasyCard {
 }
 
 /** 기기 한 대를 "신호등 색 + 한 줄 설명 + 다음에 할 일"로 바꿉니다. */
+/** 기록지·CSV의 "판단 단서" 칸에 적는 말 */
+export function hintLabel(
+  device: Pick<DeviceRecord, "name" | "signal">,
+): string {
+  const byName = assessDeviceName(device.name);
+  return device.signal && byName.kind !== "glasses-candidate"
+    ? "제조사·서비스 번호 단서 (이름은 다름)"
+    : byName.label;
+}
+
 export function easyCard(
-  device: Pick<DeviceRecord, "name" | "disposition">,
+  device: Pick<DeviceRecord, "name" | "disposition" | "signal">,
 ): EasyCard {
   if (device.disposition === "allowed")
     return {
@@ -35,6 +45,13 @@ export function easyCard(
       action: "확인한 내용은 기록지에 남아요.",
     };
   const kind = assessDeviceName(device.name).kind;
+  if (device.signal && kind !== "glasses-candidate")
+    return {
+      light: "red",
+      title: "안경 제조사 신호와 같아요",
+      action:
+        "이름은 다르지만 Meta·Luxottica·Snap 등의 번호가 잡혔어요. 같은 회사의 다른 제품일 수도 있으니 실물을 확인하세요.",
+    };
   if (kind === "glasses-candidate")
     return {
       light: "red",
@@ -113,7 +130,7 @@ export function toCsv(
       "기기",
       stamp(d.lastSelectedAt),
       d.name,
-      assessDeviceName(d.name).label,
+      hintLabel(d),
       d.zone,
       DISPOSITIONS[d.disposition],
       ...tail,
@@ -204,6 +221,7 @@ export function parseSaved(raw: string | null): SavedSession | null {
         zone: d.zone as DeviceRecord["zone"],
         disposition: d.disposition as DeviceRecord["disposition"],
         preparation: d.preparation.map(Boolean) as Preflight,
+        ...(d.signal === true ? { signal: true } : {}),
       };
     });
     const inspections = s.inspections.map((i): Inspection => {

@@ -1,4 +1,5 @@
-export type ScanScope = "glasses" | "all";
+// "glasses-plus" = 이름 단서 + 제조사·서비스 번호 단서 (쉬운 화면, glasses-signals.ts)
+export type ScanScope = "glasses" | "all" | "glasses-plus";
 export type BluetoothRequestOptions =
   | { filters: { namePrefix: string }[]; acceptAllDevices?: never }
   | { acceptAllDevices: true; filters?: never };
@@ -41,6 +42,7 @@ export function buildBluetoothRequest(
   scope: ScanScope,
 ): BluetoothRequestOptions {
   if (scope === "all") return { acceptAllDevices: true };
+  // "glasses-plus"의 번호 단서는 glasses-signals.ts가 덧붙입니다. 여기서는 이름 단서만 만듭니다.
   const prefixes = new Set(
     namePrefixes.flatMap((prefix) => [
       prefix,

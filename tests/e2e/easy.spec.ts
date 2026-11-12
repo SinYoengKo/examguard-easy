@@ -94,3 +94,42 @@ test("현장: 고른 기기가 카드로 기록되고, 새로고침해도 남으
   await expect(page.locator(".primary-nav .nav-item")).toHaveCount(3);
   await expect(page.locator("#page-title")).toHaveText("점검 기록");
 });
+
+test("이름을 바꾼 기기: 제조사 번호로 목록에 뜬 기기는 빨강 카드로 기록된다", async ({
+  page,
+}) => {
+  await page.addInitScript(() =>
+    Object.defineProperty(navigator, "bluetooth", {
+      value: {
+        requestDevice: async (options: unknown) => {
+          (window as unknown as { lastOptions: unknown }).lastOptions = options;
+          return { id: "renamed-1", name: "민수의 기기" };
+        },
+      },
+    }),
+  );
+  await page.goto("./");
+  for (const i of [0, 1, 2])
+    await page.locator(`[data-preflight="${i}"]`).click();
+  await page.locator("#easy-next").click();
+  await page.locator("#easy-scan-glasses").click();
+  await expect(page.locator(".easy-card.red .light")).toHaveText(
+    "안경 제조사 신호와 같아요",
+  );
+  await expect(page.locator(".easy-card.red h3")).toHaveText("민수의 기기");
+  const filters = await page.evaluate(
+    () =>
+      (
+        window as unknown as {
+          lastOptions: { filters: Record<string, unknown>[] };
+        }
+      ).lastOptions.filters,
+  );
+  expect(JSON.stringify(filters)).toContain('"companyIdentifier":427'); // 0x01AB Meta
+  expect(JSON.stringify(filters)).toContain('"companyIdentifier":3411'); // 0x0D53 Luxottica
+  expect(JSON.stringify(filters)).toContain('"services":[64863]'); // 0xFD5F
+  expect(JSON.stringify(filters)).toContain('"namePrefix":"Ray-Ban"');
+  // ‘모든 기기 보기’에서 같은 기기를 고르면 번호 단서 표시는 유지된다
+  await page.locator("#easy-scan-all").click();
+  await expect(page.locator(".easy-card.red")).toHaveCount(1);
+});

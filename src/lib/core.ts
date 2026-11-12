@@ -30,6 +30,8 @@ export interface DeviceRecord {
   zone: Zone;
   disposition: Disposition;
   preparation: Preflight;
+  /** 쉬운 화면: 이름이 아니라 제조사·서비스 번호 단서로 목록에 뜬 기기 */
+  signal?: boolean;
 }
 export interface Inspection {
   id: string;

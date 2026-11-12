@@ -82,3 +82,62 @@ test("자동 저장: 정상 자료는 되살리고, 깨진 자료는 버린다",
   assert.equal(parseSaved(good.replace('"교탁"', '"없는 구역"')), null);
   assert.equal(parseSaved(good.replace('"step":2', '"step":9'))?.step, 1);
 });
+
+test("번호 단서: 이름이 달라도 제조사·서비스 번호로 뜬 기기는 빨강, 이름 단서와 함께 목록 창에 건다", async () => {
+  const {
+    buildSignalRequest,
+    matchesGlassesName,
+    GLASSES_SIGNALS,
+    EXCLUDED_SIGNALS,
+  } = await import("../src/lib/glasses-signals.ts");
+  const { hintLabel } = await import("../src/lib/easy.ts");
+  const renamed = device({ name: "내 폰", signal: true });
+  assert.equal(easyCard(renamed).light, "red");
+  assert.equal(easyCard(renamed).title, "안경 제조사 신호와 같아요");
+  assert.equal(hintLabel(renamed), "제조사·서비스 번호 단서 (이름은 다름)");
+  assert.equal(easyCard(device({ name: "내 폰" })).light, "yellow");
+  assert.equal(
+    easyCard(device({ name: "내 폰", signal: true, disposition: "allowed" }))
+      .light,
+    "green",
+  );
+  // 이름으로도 안경이면 이름 단서를 그대로 보여준다
+  assert.equal(hintLabel(device({ signal: true })), hintLabel(device({})));
+
+  const { filters } = buildSignalRequest();
+  const companies = filters.flatMap((f) =>
+    "manufacturerData" in f
+      ? f.manufacturerData.map((m) => m.companyIdentifier)
+      : [],
+  );
+  const services = filters.flatMap((f) => ("services" in f ? f.services : []));
+  assert.deepEqual(companies, [0x01ab, 0x058e, 0x0d53, 0x03c2]);
+  assert.deepEqual(services, [0xfd5f, "7905fff0-b5ce-4e99-a40f-4b1e122d00d0"]);
+  assert.ok(
+    filters.some((f) => "namePrefix" in f && f.namePrefix === "Ray-Ban"),
+  );
+  // 범용 칩 제조사 번호는 일부러 넣지 않는다 (일반 이어폰 대량 오탐 방지)
+  assert.ok(!companies.includes(0x05d6));
+  assert.equal(EXCLUDED_SIGNALS[0]?.value, 0x05d6);
+  // 모든 단서에는 출처가 있어야 한다
+  for (const s of [...GLASSES_SIGNALS, ...EXCLUDED_SIGNALS])
+    assert.ok(
+      s.sources.length > 0 && s.sources.every((u) => u.startsWith("https://")),
+    );
+  assert.equal(matchesGlassesName("Ray-Ban Meta"), true);
+  assert.equal(matchesGlassesName("내 폰"), false);
+  assert.equal(
+    parseSaved(
+      JSON.stringify({
+        v: 1,
+        preflight: [true, true, true],
+        devices: [renamed],
+        inspections: [],
+        deviceKeys: [],
+        meta: {},
+        step: 2,
+      }),
+    )?.devices[0]?.signal,
+    true,
+  );
+});
