@@ -34,6 +34,10 @@ const namePrefixes = [
   "AIGlasses",
   "HeyCyan",
   "Heycyan",
+  // Rokid: 공개 개발 자료의 스캔 예제가 이름에 "Rokid" 또는 "Glasses"가 들어간 기기를 고릅니다.
+  // (docs/EASY_GUIDE.md 의 번호·이름 단서 출처 참고)
+  "Rokid",
+  "Glasses",
   "스마트 안경",
   "스마트안경",
 ];

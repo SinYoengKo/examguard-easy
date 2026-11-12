@@ -29,11 +29,13 @@
 | `0x0D53` | 제조사 | Luxottica (Ray-Ban Meta, Oakley Meta) | Luxottica의 다른 블루투스 제품 |
 | `0x03C2` | 제조사 | Snap (Spectacles) | Snap의 다른 블루투스 제품 |
 | `0xFD5F` | 서비스 | Meta(Oculus) 서비스 | Meta의 VR 기기 |
+| `0x9100` | 서비스 | Rokid Glasses (AI 안경) | 공식 등록 번호가 아니라 우연히 같은 번호를 쓰는 기기 |
 | `7905fff0-b5ce-4e99-a40f-4b1e122d00d0` | 서비스 | HeyCyan 앱 계열 보급형 카메라 안경 | 출처 1곳 |
 
 - **일부러 뺀 번호:** `0x05D6`(Jieli). 범용 칩 제조사라 저가 이어폰·스피커가 대량으로 걸립니다.
-- **번호가 없는 기종:** Even G1, XREAL, HUAWEI, Mijia, Rokid 등은 공개된 근거를 찾지 못해 이름으로만 찾습니다.
-- **출처:** 공개 프로젝트 Nearby Glasses, SquachWatch, ZuckOff, banrays가 공개한 값입니다. **이 도구에서 실기기로 직접 검증한 값이 아닙니다.** 목록과 출처 주소는 `src/lib/glasses-signals.ts`에 있습니다.
+- **Rokid:** 서비스 번호 `0x9100`과 이름(“Rokid”가 들어가거나 “Glasses”로 시작)으로 찾습니다. Rokid 개발 자료 3곳(개발자 블로그, 커뮤니티 문서, 개발 후기)의 스캔 예제가 같은 값을 씁니다. 다만 그 예제들은 **안경을 페어링 모드로 둔 상태**에서 찾는 흐름이라, 평소 착용 중에도 신호가 나오는지는 확인되지 않았습니다.
+- **번호가 없는 기종:** Even G1, XREAL, HUAWEI, Mijia 등은 공개된 근거를 찾지 못해 이름으로만 찾습니다.
+- **출처:** 공개 프로젝트 Nearby Glasses, SquachWatch, ZuckOff, banrays와 Rokid 개발 자료가 공개한 값입니다. **이 도구에서 실기기로 직접 검증한 값이 아닙니다.** 목록과 출처 주소는 `src/lib/glasses-signals.ts`에 있습니다.
 - **그래도 못 찾는 경우:** 한 공개 분석(banrays)에 따르면 Ray-Ban Meta는 전원을 켤 때와 페어링할 때만 신호가 잡혔고, 휴대전화와 연결해 쓰는 중에는 잡히지 않았습니다. 번호 단서가 있어도 **눈으로 하는 확인이 기본**입니다.
 
 ### 어떤 기기로 여나

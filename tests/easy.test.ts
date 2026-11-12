@@ -112,7 +112,11 @@ test("번호 단서: 이름이 달라도 제조사·서비스 번호로 뜬 기�
   );
   const services = filters.flatMap((f) => ("services" in f ? f.services : []));
   assert.deepEqual(companies, [0x01ab, 0x058e, 0x0d53, 0x03c2]);
-  assert.deepEqual(services, [0xfd5f, "7905fff0-b5ce-4e99-a40f-4b1e122d00d0"]);
+  assert.deepEqual(services, [
+    0xfd5f,
+    0x9100,
+    "7905fff0-b5ce-4e99-a40f-4b1e122d00d0",
+  ]);
   assert.ok(
     filters.some((f) => "namePrefix" in f && f.namePrefix === "Ray-Ban"),
   );
@@ -126,6 +130,15 @@ test("번호 단서: 이름이 달라도 제조사·서비스 번호로 뜬 기�
     );
   assert.equal(matchesGlassesName("Ray-Ban Meta"), true);
   assert.equal(matchesGlassesName("내 폰"), false);
+  // Rokid: 이름에 Rokid 가 있거나 Glasses 로 시작하면 이름 단서로 잡는다
+  assert.equal(matchesGlassesName("Rokid Glasses"), true);
+  assert.equal(matchesGlassesName("Glasses_A1B2"), true);
+  assert.equal(easyCard(device({ name: "Rokid Glasses" })).light, "red");
+  assert.equal(easyCard(device({ name: "Glasses_A1B2" })).light, "red");
+  assert.equal(
+    easyCard(device({ name: "Sunglasses Hut Speaker" })).light,
+    "gray",
+  );
   assert.equal(
     parseSaved(
       JSON.stringify({

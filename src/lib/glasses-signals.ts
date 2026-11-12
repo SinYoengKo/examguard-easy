@@ -25,6 +25,10 @@ const SQUACH =
 const ZUCKOFF =
   "https://dev.to/saptadev27/how-zuckoff-uses-ble-fingerprints-to-detect-camera-glasses-nearby-nai";
 const BANRAYS = "https://github.com/NullPxl/banrays";
+const ROKID_MIAZGA = "https://marcinmiazga.com/rokid-cxrm-upgrade";
+const ROKID_DOCS =
+  "https://github.com/buildwithfenna/rokid-docs/blob/main/cxr-m/device-connection.md";
+const ROKID_SF = "https://segmentfault.com/a/1190000047319027";
 
 /** 목록 창 필터에 실제로 쓰는 단서 (공개 프로젝트 2곳 이상에서 같은 값을 쓰는 것 위주) */
 export const GLASSES_SIGNALS: GlassesSignal[] = [
@@ -67,6 +71,15 @@ export const GLASSES_SIGNALS: GlassesSignal[] = [
     products: "Ray-Ban Meta",
     caveat: "Meta의 VR 기기도 쓸 수 있는 번호",
     sources: [SQUACH, ZUCKOFF, BANRAYS],
+  },
+  {
+    kind: "service",
+    value: 0x9100,
+    label: "Rokid Glasses 서비스 번호",
+    products: "Rokid Glasses (AI 안경)",
+    caveat:
+      "공식 등록 번호가 아니라 다른 기기가 우연히 같은 번호를 쓸 수 있음. 페어링 모드가 아닐 때도 신호가 나오는지는 미확인",
+    sources: [ROKID_MIAZGA, ROKID_DOCS, ROKID_SF],
   },
   {
     kind: "service",
