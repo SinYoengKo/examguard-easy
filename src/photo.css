@@ -1,0 +1,381 @@
+.photo-search {
+  padding: 28px;
+  margin-bottom: 34px;
+  overflow: hidden;
+  background: linear-gradient(115deg, #1b3028, #17242c);
+}
+.photo-search-intro {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+}
+.photo-search h2 {
+  font-size: 24px;
+  letter-spacing: -0.7px;
+}
+.photo-search-intro p {
+  font-size: 12px;
+  color: #adc1b6;
+  line-height: 1.9;
+  margin: 12px 0 19px;
+}
+.photo-search-intro .tiny {
+  font-size: 10px;
+  color: #8da69b;
+  margin: 15px 0 0;
+}
+.photo-search .button-row {
+  gap: 10px;
+}
+.photo-progress {
+  font-size: 12px;
+  color: #b8dbc8;
+  background: #12251d;
+  border: 1px solid #365948;
+  padding: 13px 17px;
+  margin-top: 22px;
+  border-radius: 7px;
+  overflow-wrap: anywhere;
+}
+.photo-crop {
+  display: grid;
+  grid-template-columns: minmax(180px, 300px) 1fr;
+  gap: 28px;
+  margin-top: 25px;
+  padding-top: 24px;
+  border-top: 1px solid #395146;
+  align-items: center;
+}
+.photo-preview-wrap {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #4b6a59;
+  line-height: 0;
+}
+.photo-preview-wrap canvas {
+  width: 100%;
+  aspect-ratio: 1;
+  display: block;
+}
+.photo-crop strong {
+  font-size: 16px;
+}
+.photo-crop p {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #a1b5a9;
+  max-width: 420px;
+  margin: 10px 0 18px;
+}
+.photo-crop label {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 11px;
+  color: #adbdba;
+  margin-bottom: 12px;
+}
+.photo-crop label input {
+  flex: 1;
+  min-width: 0;
+  max-width: 270px;
+}
+.photo-crop .button {
+  margin-top: 9px;
+  font-size: 12px;
+}
+.photo-crop #photo-cancel {
+  margin-left: 8px;
+}
+.photo-result-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 27px;
+}
+.photo-result-heading h3 {
+  font-size: 17px;
+}
+.photo-results > p {
+  font-size: 11px;
+  color: #afc0b6;
+  line-height: 1.9;
+  margin: 10px 0 18px;
+}
+.photo-candidate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.photo-candidate {
+  position: relative;
+  background: #17251f;
+  border: 1px solid #355345;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  padding: 0 0 17px;
+  min-width: 0;
+}
+.photo-candidate:hover {
+  border-color: #8acfaa;
+  background: #20382c;
+}
+.candidate-rank {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--mint);
+}
+.photo-candidate img {
+  width: 100%;
+  aspect-ratio: 1.9;
+  object-fit: cover;
+  margin-bottom: 9px;
+}
+.photo-candidate strong,
+.photo-candidate > span:not(.candidate-rank),
+.photo-candidate small {
+  display: block;
+  margin: 0 15px;
+}
+.photo-candidate strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.photo-candidate > span:not(.candidate-rank) {
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 7px;
+  color: #9fbaaa;
+}
+.photo-candidate small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--mint);
+  font-size: 10px;
+  margin-top: 17px;
+}
+.photo-candidate small .icon {
+  width: 13px;
+  height: 13px;
+}
+.atlas-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 22px;
+}
+.atlas-heading h2 {
+  font-size: 23px;
+  letter-spacing: -0.5px;
+}
+.camera-find {
+  padding: 0 20px 12px;
+}
+.camera-find .text-button {
+  font-size: 11px;
+}
+.glance-strip {
+  background: #213d2e;
+  border: 1px solid #406a50;
+  color: #bcdfcc !important;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin: 17px 0;
+  line-height: 1.7 !important;
+}
+.atlas-view > span {
+  font-size: 10px;
+  color: #81998c;
+  display: block;
+  text-align: center;
+  margin-top: -9px;
+  margin-bottom: 22px;
+}
+.atlas-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.atlas-features article {
+  display: flex;
+  gap: 15px;
+}
+.feature-number {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border: 1px solid #53775d;
+  background: #24392c;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--mint);
+  font-family: monospace;
+  font-size: 11px;
+}
+.atlas-features small {
+  font-size: 9px;
+  color: #81b69a;
+}
+.atlas-features h3 {
+  font-size: 14px;
+  margin: 3px 0 7px;
+}
+.atlas-features p {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #a3b8ad;
+}
+.atlas-details {
+  padding-top: 20px;
+  margin-top: 22px;
+  border-top: 1px solid #314c3e;
+}
+.atlas-details dt {
+  font-size: 11px;
+  color: #c6dccd;
+  margin-bottom: 6px;
+}
+.atlas-details dd {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #93ac9e;
+  margin: 0 0 17px;
+}
+dialog:has(.atlas-view) {
+  max-width: 680px;
+}
+.guide-card h2 {
+  overflow-wrap: anywhere;
+}
+.guide-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 760px) {
+  .photo-search {
+    padding: 23px 20px;
+  }
+  .photo-search-intro {
+    gap: 15px;
+  }
+  .photo-search h2 {
+    font-size: 21px;
+  }
+  .photo-search-intro .feature-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .photo-search-intro .feature-icon .icon {
+    width: 23px;
+    height: 23px;
+  }
+  .photo-crop {
+    gap: 20px;
+    grid-template-columns: minmax(150px, 240px) 1fr;
+  }
+  .photo-candidate-grid {
+    gap: 9px;
+  }
+  .photo-candidate strong {
+    font-size: 11px;
+  }
+  .photo-candidate strong,
+  .photo-candidate > span:not(.candidate-rank),
+  .photo-candidate small {
+    margin-left: 11px;
+    margin-right: 11px;
+  }
+  .photo-result-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .photo-crop .button {
+    font-size: 11px;
+  }
+  .atlas-heading h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .photo-search-intro {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .photo-search h2 {
+    font-size: 22px;
+  }
+  .photo-search-intro p {
+    font-size: 11px;
+  }
+  .photo-search .button {
+    font-size: 11px;
+    padding: 10px 12px;
+  }
+  .photo-crop {
+    grid-template-columns: 1fr;
+  }
+  .photo-preview-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .photo-crop label input {
+    max-width: none;
+  }
+  .photo-candidate-grid {
+    grid-template-columns: 1fr;
+  }
+  .photo-candidate {
+    padding: 0 0 16px;
+  }
+  .photo-candidate img {
+    aspect-ratio: 2.6;
+  }
+  .photo-candidate strong {
+    font-size: 15px;
+  }
+  .photo-candidate > span:not(.candidate-rank) {
+    font-size: 11px;
+  }
+  .photo-candidate small {
+    margin-top: 10px;
+  }
+  .photo-search {
+    padding: 20px 17px;
+  }
+  .atlas-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .atlas-view > span {
+    font-size: 9px;
+  }
+}
+
+.handoff-link {
+  margin: -5px 0 22px;
+}
+.handoff-link .text-button {
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .search-field input {
+    font-size: 16px;
+  }
+}

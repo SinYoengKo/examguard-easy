@@ -1,0 +1,27 @@
+name: 기종 자료 · 검증 제보
+description: 공식 근거, 재배포 가능한 사진 또는 실제 기기 검증을 공유합니다.
+title: '[기종] '
+body:
+  - type: input
+    id: model
+    attributes:
+      label: 제조사 · 정확한 모델 · 세대 · 지역
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: 공식 근거와 직접 확인한 특징
+      description: 설명서/제품 링크와 실제 관찰을 구분해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: photos
+    attributes:
+      label: 사진 출처 · 저작자 · 라이선스
+      description: 얼굴·개인정보·현장 식별 정보는 올리지 마세요. 직접 촬영했다면 재배포 허용 범위를 명시해 주세요.
+  - type: textarea
+    id: environment
+    attributes:
+      label: 검증 환경과 재현 절차
+      description: OS, 브라우저, 수신 장비, 전원/연결 상태를 적어 주세요. 실제 BLE 주소는 익명화하세요.

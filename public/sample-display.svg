@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="480" viewBox="0 0 768 480"><defs>
+  <radialGradient id="bg"><stop stop-color="#1b3335"/><stop offset="1" stop-color="#0c161e"/></radialGradient>
+  <linearGradient id="metal" x2=".2" y2="1"><stop stop-color="#647277"/><stop offset=".18" stop-color="#222d32"/><stop offset=".64" stop-color="#0c1519"/><stop offset="1" stop-color="#48545a"/></linearGradient>
+  <linearGradient id="lens" x2=".7" y2="1"><stop stop-color="#6fada5" stop-opacity=".35"/><stop offset=".45" stop-color="#1a3038" stop-opacity=".5"/><stop offset="1" stop-color="#8dbbab" stop-opacity=".16"/></linearGradient>
+  <linearGradient id="temple" x2="0" y2="1"><stop stop-color="#526267"/><stop offset=".4" stop-color="#1a282f"/><stop offset="1" stop-color="#10191e"/></linearGradient>
+  <filter id="shadow"><feGaussianBlur stdDeviation="12"/></filter>
+  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#769e9014" stroke-width=".6"/></pattern>
+</defs><rect width="768" height="480" fill="url(#bg)"/><rect width="768" height="480" fill="url(#grid)"/><ellipse cx="384" cy="338" rx="240" ry="29" fill="#03090d" opacity=".7" filter="url(#shadow)"/>
+    <path d="M156 205 230 130q22-16 48-7l12 6-7 9-20-5q-10-3-20 6l-70 73M612 205 538 130q-22-16-48-7l-12 6 7 9 20-5q10-3 20 6l70 73" fill="url(#temple)" stroke="#7b8a83" stroke-width="2"/>
+    <path d="M164 205q-20 74 22 104 24 16 72 9 75-7 79-88 0-39-80-38-55-2-93 13ZM604 205q20 74-22 104-24 16-72 9-75-7-79-88 0-39 80-38 55-2 93 13Z" fill="url(#lens)" stroke="#9aa69a" stroke-width="4"/>
+    <path d="M337 224q47-36 94 0" fill="none" stroke="#b1b6a7" stroke-width="4"/>
+    <path d="M183 216h132v70H183zM453 216h132v70H453z" fill="#7fd7a30d" stroke="#93d4af66" stroke-width="1.3"/>
+    <path d="M197 231h103m-103 7h103m-103 7h103m-103 7h103m-103 7h103M467 231h103m-103 7h103m-103 7h103m-103 7h103m-103 7h103" stroke="#83c69933" stroke-width="1"/>
+    <circle cx="258" cy="133" r="3" fill="#c8b984"/><circle cx="510" cy="133" r="3" fill="#c8b984"/><g fill="#638777" font-size="8" letter-spacing="2" font-family="monospace"><text x="30" y="444">EXAMGUARD / REFERENCE ILLUSTRATION</text><text x="639" y="444">DISPLAY</text></g></svg>

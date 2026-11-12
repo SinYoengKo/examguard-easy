@@ -1,0 +1,121 @@
+{
+  "model": "Xenova/clip-vit-base-patch32",
+  "revision": "6b7c523703ae26e39be4b03774966f8571c7f523",
+  "reviewed": "2026-11-07",
+  "references": [
+    {
+      "id": "meta-front-crop",
+      "guideId": "meta",
+      "file": "meta-front.jpg",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Ray-Ban_Meta_Gen_1_smart_glasses_with_charging_case.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Ray-Ban_Meta_Gen_1_smart_glasses_with_charging_case.jpg",
+      "credit": "CCadio",
+      "license": "CC-BY-4.0",
+      "crop": [
+        130,
+        520,
+        1270,
+        460
+      ],
+      "sha256": "eca8672d2532c2dc312c2857860d7775eb3e8af2177a87fb03529531b33ce8c0"
+    },
+    {
+      "id": "even-front",
+      "guideId": "even",
+      "file": "even-object.jpg",
+      "url": "https://cdn.sanity.io/images/wfyhg2qw/production/b6ef2b504d3fc06269d8b0ba40e460922db0e478-4096x1571.jpg?w=1000",
+      "source": "https://www.evenrealities.com/g1",
+      "credit": "Even Realities",
+      "license": "Manufacturer image; source pixels not redistributed",
+      "crop": [
+        230,
+        100,
+        540,
+        200
+      ],
+      "sha256": "4ab79e34d3ec58a0502447e70df02cfeafb3c882bbad72a34e6b8f32016e4339"
+    },
+    {
+      "id": "xreal-front",
+      "guideId": "xreal",
+      "file": "xreal-front.png",
+      "url": "https://us.shop.xreal.com/cdn/shop/files/Air2_img_G_Di.1.png?v=1722060669&width=832",
+      "source": "https://us.shop.xreal.com/products/xreal-air-2",
+      "credit": "XREAL",
+      "license": "Manufacturer image; source pixels not redistributed",
+      "sha256": "1803728fca32918ffddf21917d1b4521802d043b1d3b6d7901b7a86292322b4b"
+    },
+    {
+      "id": "xreal-bottom",
+      "guideId": "xreal",
+      "file": "xreal-bottom.png",
+      "url": "https://us.shop.xreal.com/cdn/shop/files/Air2_img_G_Bottom.1.png?v=1722060669&width=832",
+      "source": "https://us.shop.xreal.com/products/xreal-air-2",
+      "credit": "XREAL",
+      "license": "Manufacturer image; source pixels not redistributed",
+      "sha256": "73f0cf5f7babaa6ab14a5645a2e010fb6af175bf11090e9e8ddf524abc6749c0"
+    },
+    {
+      "id": "mijia-browline",
+      "guideId": "mijia",
+      "file": "mijia-front.png",
+      "url": "https://i02.appmifile.com/mi-com-product/fly-birds/mijia-smart-audio-glasses/pc/d1852645e6b8472e607a90f599172531.png",
+      "source": "https://www.mi.com/global/product/mijia-smart-audio-glasses/",
+      "credit": "Xiaomi",
+      "license": "Manufacturer image; source pixels not redistributed",
+      "crop": [
+        30,
+        0,
+        520,
+        165
+      ],
+      "sha256": "0b1332fccfc4292939135e63958b3468f814b590ac864f24e2fc901d7e93f20e"
+    },
+    {
+      "id": "mijia-pilot",
+      "guideId": "mijia",
+      "file": "mijia-pilot.png",
+      "url": "https://i02.appmifile.com/mi-com-product/fly-birds/mijia-smart-audio-glasses/pc/8c178818f482d03824573841d8a96af1.png",
+      "source": "https://www.mi.com/global/product/mijia-smart-audio-glasses/",
+      "credit": "Xiaomi",
+      "license": "Manufacturer image; source pixels not redistributed",
+      "crop": [
+        40,
+        0,
+        510,
+        150
+      ],
+      "sha256": "938b4a3e1ba53434ecf7ddf2a6bbe23505125597561504e445ec0ab15c79ad1a"
+    },
+    {
+      "id": "huawei-browline",
+      "guideId": "huawei",
+      "file": "huawei-front.png",
+      "url": "https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/audio/huawei-eyewear-2/img/product-design/huawei-eyewear-2-browline-1-s.png",
+      "source": "https://consumer.huawei.com/en/audio/huawei-eyewear-2/",
+      "credit": "Huawei",
+      "license": "Manufacturer image; source pixels not redistributed",
+      "sha256": "27ad1bdc2ce219f5dc74dfa73dbf35e484d7f1b9d2ecd9fdb6af0386070b489e"
+    },
+    {
+      "id": "huawei-round",
+      "guideId": "huawei",
+      "file": "huawei-round.png",
+      "url": "https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/audio/huawei-eyewear-2/new/img/product-design/huawei-eyewear-2-round-eyewear.png",
+      "source": "https://consumer.huawei.com/en/audio/huawei-eyewear-2/",
+      "credit": "Huawei",
+      "license": "Manufacturer image; source pixels not redistributed",
+      "sha256": "fc4703a911e458db5b8636b573238f6eed15d19420bbde337713c59bfa39575e"
+    },
+    {
+      "id": "ordinary-wayfarer",
+      "guideId": "normal",
+      "file": "ordinary-wayfarer.jpg",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Ray_Ban_Original_Wayfarer.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Ray_Ban_Original_Wayfarer.jpg",
+      "credit": "Jaschke",
+      "license": "CC-BY-SA-3.0",
+      "sha256": "1a510f7ab6635995401bd8a43c6be70dfd53bebac5ffeeb31ec6c83637c3c97e"
+    }
+  ]
+}

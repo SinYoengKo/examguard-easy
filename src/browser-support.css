@@ -1,0 +1,102 @@
+.browser-support {
+  margin-bottom: 22px;
+  padding: 22px 24px;
+  border: 1px solid #6a5439;
+  border-radius: 16px;
+  background: linear-gradient(120deg, #292821, #182533);
+}
+.browser-support[data-supported="true"] {
+  border-color: #285e51;
+  background: linear-gradient(120deg, #18352e, #182533);
+}
+.browser-support .eyebrow {
+  color: #f2c47d;
+  margin-bottom: 8px;
+}
+.browser-support[data-supported="true"] .eyebrow {
+  color: #70e1bf;
+}
+.browser-support h2 {
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0 0 8px;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.browser-support p,
+.browser-support li,
+.browser-guide p,
+.browser-guide li {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #c7d1dc;
+}
+.browser-support p {
+  margin: 0;
+}
+.browser-support ol {
+  padding-left: 22px;
+  margin: 12px 0;
+}
+.browser-support .button-row {
+  margin-top: 14px;
+}
+.browser-support details {
+  margin-top: 14px;
+}
+.browser-support summary {
+  cursor: pointer;
+  color: #d7e3ed;
+  font-size: 13px;
+}
+.app-address {
+  display: block;
+  font-size: 12px;
+  color: #c7d1dc;
+  margin-top: 12px;
+}
+.app-address input {
+  display: block;
+  width: 100%;
+  margin: 7px 0;
+  padding: 10px;
+  font-size: 13px;
+  background: #111e2c;
+  color: #e3effb;
+  border: 1px solid #4b5d71;
+  border-radius: 8px;
+}
+.browser-guide {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0;
+}
+.browser-guide article {
+  padding: 16px;
+  border: 1px solid #3c4c62;
+  border-radius: 12px;
+  background: #1c2b3e;
+}
+.browser-guide h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+.browser-guide p {
+  margin: 6px 0 0;
+}
+.browser-guide ol {
+  padding-left: 20px;
+  margin: 10px 0 0;
+}
+@media (max-width: 760px) {
+  .browser-support {
+    padding: 18px;
+  }
+  .browser-support .button-row > * {
+    flex: 1 1 140px;
+    justify-content: center;
+  }
+  .browser-support h2 {
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,17 @@
+name: 동작 오류
+description: 익명 예시와 재현 절차로 문제를 알려 주세요.
+title: '[오류] '
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: 기기 · OS · 브라우저 버전
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 절차 · 기대 동작 · 실제 동작
+      description: 오류 문구와 사용 모드를 적어 주세요. 현장 사진·개인정보·보고서 원문을 첨부하지 마세요.
+    validations:
+      required: true

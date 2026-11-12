@@ -1,0 +1,439 @@
+{
+  "schema": "examguard.radio.v2",
+  "source": "ExamGuard synthetic advertisement fixture",
+  "isDemo": true,
+  "samples": [
+    {
+      "deviceKey": "demo-match",
+      "name": "복합 조건 일치 · 가상",
+      "zone": "창가",
+      "rssi": -58,
+      "timestamp": "2026-11-07T01:00:00.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-match",
+      "name": "복합 조건 일치 · 가상",
+      "zone": "창가",
+      "rssi": -59,
+      "timestamp": "2026-11-07T01:00:02.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-match",
+      "name": "복합 조건 일치 · 가상",
+      "zone": "창가",
+      "rssi": -60,
+      "timestamp": "2026-11-07T01:00:04.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-match",
+      "name": "복합 조건 일치 · 가상",
+      "zone": "가운데",
+      "rssi": -73,
+      "timestamp": "2026-11-07T01:00:06.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-match",
+      "name": "복합 조건 일치 · 가상",
+      "zone": "가운데",
+      "rssi": -75,
+      "timestamp": "2026-11-07T01:00:08.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-match",
+      "name": "복합 조건 일치 · 가상",
+      "zone": "가운데",
+      "rssi": -74,
+      "timestamp": "2026-11-07T01:00:10.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-same-company",
+      "name": "같은 회사의 다른 제품 · 가상",
+      "zone": "창가",
+      "rssi": -58,
+      "timestamp": "2026-11-07T01:00:12.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              32,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-same-company",
+      "name": "같은 회사의 다른 제품 · 가상",
+      "zone": "창가",
+      "rssi": -59,
+      "timestamp": "2026-11-07T01:00:14.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              32,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-same-company",
+      "name": "같은 회사의 다른 제품 · 가상",
+      "zone": "창가",
+      "rssi": -60,
+      "timestamp": "2026-11-07T01:00:16.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              32,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-same-company",
+      "name": "같은 회사의 다른 제품 · 가상",
+      "zone": "가운데",
+      "rssi": -73,
+      "timestamp": "2026-11-07T01:00:18.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              32,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-same-company",
+      "name": "같은 회사의 다른 제품 · 가상",
+      "zone": "가운데",
+      "rssi": -75,
+      "timestamp": "2026-11-07T01:00:20.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              32,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-same-company",
+      "name": "같은 회사의 다른 제품 · 가상",
+      "zone": "가운데",
+      "rssi": -74,
+      "timestamp": "2026-11-07T01:00:22.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65535,
+            "bytes": [
+              0,
+              71,
+              32,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-unknown",
+      "name": "미등록 기기 · 가상",
+      "zone": "창가",
+      "rssi": -58,
+      "timestamp": "2026-11-07T01:00:24.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65534,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-unknown",
+      "name": "미등록 기기 · 가상",
+      "zone": "창가",
+      "rssi": -59,
+      "timestamp": "2026-11-07T01:00:26.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65534,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-unknown",
+      "name": "미등록 기기 · 가상",
+      "zone": "창가",
+      "rssi": -60,
+      "timestamp": "2026-11-07T01:00:28.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65534,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-unknown",
+      "name": "미등록 기기 · 가상",
+      "zone": "가운데",
+      "rssi": -73,
+      "timestamp": "2026-11-07T01:00:30.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65534,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-unknown",
+      "name": "미등록 기기 · 가상",
+      "zone": "가운데",
+      "rssi": -75,
+      "timestamp": "2026-11-07T01:00:32.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65534,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    },
+    {
+      "deviceKey": "demo-unknown",
+      "name": "미등록 기기 · 가상",
+      "zone": "가운데",
+      "rssi": -74,
+      "timestamp": "2026-11-07T01:00:34.000Z",
+      "advertisement": {
+        "manufacturerData": [
+          {
+            "companyId": 65534,
+            "bytes": [
+              0,
+              71,
+              16,
+              167,
+              1
+            ]
+          }
+        ],
+        "serviceUuids": [
+          "f0f0f0f0-1111-4222-8333-444444444444"
+        ]
+      }
+    }
+  ]
+}

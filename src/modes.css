@@ -1,0 +1,86 @@
+.nav-mode {
+  font-size: 9px;
+  color: #a0c6b2;
+  margin-right: 7px;
+  font-family: monospace;
+}
+.aux-nav-label {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: #728791;
+  margin: 27px 14px 12px;
+}
+.ble-help-link {
+  padding: 0 20px 15px;
+}
+.ble-help-link .text-button {
+  font-size: 10px;
+}
+.sidebar .primary-nav .nav-item {
+  font-size: 12px;
+  padding-left: 11px;
+  padding-right: 11px;
+  gap: 9px;
+}
+.sidebar .aux-nav .nav-item {
+  font-size: 12px;
+}
+.sidebar-bottom {
+  padding-top: 24px;
+}
+@media (max-width: 760px) {
+  .sidebar .primary-nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    overflow: visible;
+  }
+  .sidebar .primary-nav .nav-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    white-space: normal;
+    gap: 5px;
+    padding: 10px 4px;
+    font-size: 10px;
+    min-width: 0;
+  }
+  .nav-mode {
+    font-size: 9px;
+    margin-right: 4px;
+  }
+  .aux-nav-label {
+    display: none;
+  }
+  .sidebar .aux-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    padding: 0 0 10px;
+  }
+  .sidebar .aux-nav .nav-item {
+    justify-content: center;
+    font-size: 10px;
+    padding: 7px;
+    gap: 7px;
+  }
+  .sidebar .aux-nav .nav-count {
+    margin-left: 0;
+  }
+  .sidebar .aux-nav .icon {
+    width: 14px;
+    height: 14px;
+  }
+  .primary-nav .nav-item.active:before {
+    display: none;
+  }
+  .camera-panel .panel-header h2 {
+    font-size: 11px;
+  }
+  .ble-help-link {
+    padding: 0 14px 13px;
+  }
+  .ble-help-link .text-button {
+    font-size: 9px;
+  }
+}
