@@ -121,3 +121,24 @@ body.ui-easy p, body.ui-easy li, #easy-next-hint { text-wrap: pretty; }
 body.ui-easy .breadcrumb.easy-only { display: block; white-space: nowrap; }
 @media (max-width: 760px) { body.ui-easy .breadcrumb.easy-only { font-size: 14px; } body.ui-easy #easy-help span { display: none; } }
 body.ui-easy[data-step="1"] #main { padding-bottom: 150px; }
+
+/* 첫 화면 소개 */
+.easy-start { border: 1px solid #1f4d43; background: linear-gradient(160deg, #10302a 0%, var(--panel) 70%); }
+.easy-hero { display: flex; align-items: center; gap: 14px; }
+.easy-emblem { display: grid; place-items: center; flex: none; width: 56px; height: 56px; border-radius: 16px; background: #103b32; color: var(--mint); }
+.easy-emblem .icon { width: 30px; height: 30px; }
+.easy-hero h2 { font-size: 21px; margin: 0 0 4px; }
+.easy-hero p { margin: 0; }
+/* 시연 길잡이 */
+.easy-demo-bar > div { display: grid; gap: 2px; min-width: 0; }
+.easy-demo-bar small { font-size: 12px; font-weight: 600; opacity: 0.85; }
+.easy-demo-bar strong { font-size: 15.5px; color: #fff3c4; }
+body.ui-easy .easy-demo-bar { position: sticky; top: 8px; z-index: 30; box-shadow: 0 6px 18px #0008; }
+.coach-target { outline: 3px solid #fcd34d; outline-offset: 3px; animation: coach-pulse 1.4s ease-in-out infinite; }
+@keyframes coach-pulse { 50% { outline-color: #fcd34d55; outline-offset: 6px; } }
+@media (prefers-reduced-motion: reduce) { .coach-target { animation: none; } }
+/* 도감: 쓰는 모습으로 보는 단서 */
+.behavior-tips { padding: 18px 20px; margin-bottom: 18px; border-left: 4px solid var(--amber); }
+.behavior-tips h2 { font-size: 17px; margin: 0 0 10px; }
+.behavior-tips ul { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 6px; font-size: 14.5px; line-height: 1.6; color: var(--text); }
+.behavior-tips .tiny { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.55; }

@@ -66,7 +66,7 @@ const glassesNames = [
   {
     pattern: /\brokid\b/i,
     name: "Rokid 계열 이름",
-    guide: null,
+    guide: "rokid",
   },
   {
     pattern: /\b(?:smart|ai)\s*glasses\b|스마트\s*안경|\bheycyan\b|^glasses\b/i,

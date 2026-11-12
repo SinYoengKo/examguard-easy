@@ -192,14 +192,14 @@ $("#app").innerHTML = `
   <div class="workspace">
     <header class="topbar"><div class="breadcrumb easy-only">스마트안경 점검 도우미</div><div class="breadcrumb pro-only">감독관 도구 <span>/</span> <strong id="breadcrumb-current">무선 기기 확인</strong></div><div class="topbar-right"><span class="connection" id="connection-status"><span class="status-dot"></span> 연결 상태 확인 중</span><button class="button small ghost easy-only" id="easy-help">${icon("info")}<span>도움말</span></button><button class="button small ghost" id="ui-toggle"></button><button class="button small ghost" id="install-button">${icon("download")}<span>홈 화면에 추가</span></button></div></header>
     <main id="main" tabindex="-1">
-      <div class="easy-demo-bar easy-only" id="easy-demo-bar" hidden><span>시연 중 · 가상 예시예요</span><button id="easy-demo-end">시연 끝내기</button></div>
+      <div class="easy-demo-bar easy-only" id="easy-demo-bar" hidden><div><small>시연 중 · 가상 예시예요</small><strong id="easy-coach"></strong></div><button id="easy-demo-end">시연 끝내기</button></div>
       <nav class="easy-steps easy-only" aria-label="점검 단계">${EASY_STEPS.map((label, i) => `<button data-easy-step="${i + 1}"><b>${i + 1}</b><span>${label}</span></button>`).join("")}</nav>
       <div class="page-heading"><div><div class="eyebrow">A CLEARER VIEW. A FAIRER EXAM.</div><h1 id="page-title">교실 전파 탐색</h1><p id="page-subtitle">${nav[0]!.subtitle}</p></div><button class="button secondary small" id="reset-button">${icon("reset")} 새 점검</button></div>
 
       <div class="easy-tabs easy-only" id="easy-tabs"><button data-page="optical">카메라로 살펴보기</button><button data-page="guide">도감과 비교하기</button></div>
 
       <section id="page-wireless" class="page-section" aria-label="무선 기기 확인">
-        <article class="panel easy-panel easy-start easy-only" id="easy-start"><h2>처음이신가요?</h2><p>블루투스나 안경이 없어도, 가상 예시로 끝까지 눌러볼 수 있어요. (약 1분)</p><button class="button secondary easy-big" id="easy-demo-start">시연으로 둘러보기</button></article>
+        <article class="panel easy-panel easy-start easy-only" id="easy-start"><div class="easy-hero"><span class="easy-emblem">${icon("shield")}</span><div><h2>스마트안경 점검 도우미</h2><p>시험장의 스마트안경을 4단계로 확인하고 기록해요.</p></div></div><div class="easy-actions"><button class="button primary easy-big" id="easy-demo-start"><span>시연으로 둘러보기</span><small>안경·블루투스 없이 1분</small></button><button class="button secondary easy-big" id="easy-share"><span>동료에게 주소 보내기</span><small>설치 없이 주소만 열면 돼요</small></button></div><p class="easy-note">실제 점검은 아래 3가지를 체크하면 시작돼요.</p></article>
         <aside class="browser-support" id="browser-support" data-supported="${bluetoothSupported}" aria-labelledby="browser-support-title">
           <div class="eyebrow">접속 안내 · 웹 주소로 사용</div>
           <h2 id="browser-support-title">${esc(browserSupport.title)}</h2>
@@ -219,7 +219,9 @@ $("#app").innerHTML = `
               ([symbol, title, sub], i) =>
                 `<button class="preflight-item" data-preflight="${i}" aria-pressed="false"><span class="step-icon">${icon(symbol!)}</span><span><strong>${title}</strong><small>${sub}</small></span><span class="check-circle">${icon("check")}</span></button>`,
             )
-            .join("")}</div>
+            .join(
+              "",
+            )}</div><p class="easy-note easy-only">스마트안경은 대개 켜진 휴대전화와 함께 써요. 숨긴 두 번째 휴대전화가 없는지도 확인하세요.</p>
         </div>
         <section id="easy-scan" class="easy-only">
           <article class="panel easy-panel"><h2>이렇게 찾아요</h2>
@@ -292,7 +294,7 @@ $("#app").innerHTML = `
         )
         .join(
           "",
-        )}</div><label class="search-field">${icon("search")}<input id="guide-search" type="search" placeholder="기종 또는 특징 검색" aria-label="도감 검색"/></label></div><div class="guide-grid" id="guide-grid"></div><div class="quiet-note">${icon("info")}<p>그림은 관찰 위치를 안내하는 자체 제작 도식입니다. 제품 사진·크기 비교·검증된 시그니처가 아닙니다. 자료 확인: 2026.11.07.</p></div></section>
+        )}</div><label class="search-field">${icon("search")}<input id="guide-search" type="search" placeholder="기종 또는 특징 검색" aria-label="도감 검색"/></label></div><article class="panel behavior-tips"><h2>쓰는 모습으로 보는 단서</h2><ul><li>문제지를 정면에 두고 <strong>일정한 간격으로 멈춰 보는</strong> 동작이 되풀이되는지</li><li>렌즈 안쪽에 <strong>초록빛 글자나 윤곽</strong>이 비치는지 (각도에 따라 희미함)</li><li>안경다리를 <strong>자주 만지거나</strong> 접었다 펴는지</li><li>가까이에 <strong>켜진 휴대전화</strong>가 숨겨져 있지 않은지</li></ul><p class="tiny">공개 리뷰와 온라인에 올라온 문제풀이 앱 소개 글을 바탕으로 정리한 참고 단서입니다. 이 행동만으로 부정행위를 판단하지 않습니다.</p></article><div class="guide-grid" id="guide-grid"></div><div class="quiet-note">${icon("info")}<p>그림은 관찰 위치를 안내하는 자체 제작 도식입니다. 제품 사진·크기 비교·검증된 시그니처가 아닙니다. 자료 확인: 2026.11.07.</p></div></section>
 
       <section id="page-zones" class="page-section" aria-label="구역별 신호 비교" hidden><div class="import-layout"><article class="panel import-panel"><span class="feature-icon">${icon("map")}</span><div><div class="eyebrow">BRING YOUR OWN RECEIVER</div><h2>수신기의 기록을,<br>하나의 점검 화면으로.</h2><p>Android·ESP32 등 별도 수신기의 측정값을 지정된 JSON 형식으로 가져오세요. 이 브라우저가 신호 세기를 직접 측정하지는 않습니다.</p><div class="button-row"><button class="button primary" id="radio-import">${icon("upload")} 측정 파일 열기</button><button class="button secondary" id="radio-demo">${icon("play")} 예제로 살펴보기</button></div><input id="radio-input" type="file" accept=".json,application/json" hidden/><a class="text-button" href="${asset("radio-example.json")}" download="examguard-radio-example.json">예제 형식 다운로드 ${icon("download")}</a></div></article><article class="panel measurement-note"><h2>비교가 의미 있으려면</h2><ol><li>같은 수신기로 같은 기기를 측정합니다.</li><li>구역마다 3회 이상 반복합니다.</li><li>측정 시간과 방향을 비슷하게 맞춥니다.</li></ol><p>RSSI는 벽·몸·안테나 방향의 영향을 받습니다. 상대적으로 강한 구역을 보여주며, 거리·좌석·소유자를 확정하지 않습니다.</p></article></div><p id="radio-message" class="inline-message" role="status"></p><article class="panel signature-panel"><div class="signature-heading"><div><div class="eyebrow">MANUFACTURER + UUID + PAYLOAD</div><h2>광고 패킷 복합 필터</h2></div><span class="badge">외부 자료 대조</span></div><p class="panel-description">회사 ID가 같아도 바로 기종 후보로 분류하지 않습니다. 같은 광고의 UUID·바이트 배열·마스크 조건까지 함께 확인합니다.</p><div class="button-row"><button class="button secondary small" id="signature-import">${icon("upload")} 규칙 파일 열기</button><button class="button primary small" id="signature-demo">${icon("play")} 복합 필터 예제</button><button class="text-button" id="signature-clear" disabled>규칙 지우기</button><a class="text-button" href="${repository}/blob/main/docs/SIGNATURES.md" target="_blank" rel="noopener noreferrer">규칙·입력 형식 ${icon("external")}</a></div><input id="signature-input" type="file" accept=".json,application/json" hidden/><p id="signature-rules-state" class="tiny"></p><p id="signature-message" role="status"></p><div id="signature-results"></div></article><div id="radio-results"></div></section>
 
@@ -1225,6 +1227,38 @@ function renderEasy() {
   }
   $("#easy-demo-bar").hidden = !demo;
   $("#easy-start").hidden = demo;
+  $$(".coach-target").forEach((el) => el.classList.remove("coach-target"));
+  if (demo) {
+    const demoNames = devices
+      .filter((d) => d.source === "demo")
+      .map((d) => d.name);
+    const hasGlasses = demoNames.some((n) => n.startsWith("Ray-Ban"));
+    const hasAll = demoNames.some((n) => n.startsWith("AirPods"));
+    const [coach, target] =
+      easyStep === 1
+        ? !ready
+          ? [
+              "아래 3가지를 하나씩 눌러 보세요",
+              '[data-preflight][aria-pressed="false"]',
+            ]
+          : ["좋아요! 맨 아래 ‘다음’을 누르세요", "#easy-next"]
+        : easyStep === 2
+          ? !hasGlasses
+            ? ["‘안경 종류만 찾기’를 눌러 보세요", "#easy-scan-glasses"]
+            : !hasAll
+              ? ["이번엔 ‘모든 기기 보기’를 눌러 보세요", "#easy-scan-all"]
+              : ["카드의 버튼을 눌러 색을 바꿔 보고 ‘다음’", "#easy-next"]
+          : easyStep === 3
+            ? currentPage === "guide"
+              ? ["기종 카드를 눌러 보고 ‘다음’", "#easy-next"]
+              : [
+                  "‘도감과 비교하기’를 눌러 보세요",
+                  '#easy-tabs [data-page="guide"]',
+                ]
+            : ["‘기록지 인쇄 · PDF 저장’을 눌러 보세요", "#print-sheet-button"];
+    $("#easy-coach").textContent = coach!;
+    $$(target!).forEach((el) => el.classList.add("coach-target"));
+  }
   $$("#easy-tabs button").forEach((button) =>
     button.classList.toggle("active", button.dataset.page === currentPage),
   );
@@ -1310,15 +1344,16 @@ $("#ui-toggle").addEventListener("click", () => {
 });
 
 // ── 시연: 블루투스·안경 없이 가상 예시로 4단계를 끝까지 눌러봅니다 ──
-function addDemoDevices(names: string[]) {
+function addDemoDevices(entries: { name: string; signal?: boolean }[]) {
   const now = new Date().toISOString();
-  const fresh = names.filter(
-    (name) => !devices.some((d) => d.source === "demo" && d.name === name),
+  const fresh = entries.filter(
+    (entry) =>
+      !devices.some((d) => d.source === "demo" && d.name === entry.name),
   );
   devices.push(
-    ...fresh.map((name): DeviceRecord => ({
+    ...fresh.map((entry): DeviceRecord => ({
       id: crypto.randomUUID(),
-      name,
+      name: entry.name,
       source: "demo",
       selectedAt: now,
       lastSelectedAt: now,
@@ -1326,6 +1361,7 @@ function addDemoDevices(names: string[]) {
       zone: "미지정",
       disposition: "unreviewed",
       preparation: [...preflight],
+      ...(entry.signal ? { signal: true } : {}),
     })),
   );
   easyNotice = fresh.length
@@ -1359,13 +1395,33 @@ function endDemo() {
   toast("시연을 마쳤습니다. 시연 기록은 지웠어요.");
 }
 $("#easy-demo-start").addEventListener("click", startDemo);
+// 동료에게 주소 보내기: 휴대폰은 공유 창, 안 되면 주소 복사
+async function shareApp() {
+  const data = { title: "스마트안경 점검 도우미", url: publicAppUrl };
+  try {
+    if (navigator.share) return await navigator.share(data);
+    await navigator.clipboard.writeText(publicAppUrl);
+    toast("주소를 복사했습니다. 메신저에 붙여 넣어 보내세요.");
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") return; // 공유 창을 그냥 닫음
+    toast(`주소: ${publicAppUrl}`);
+  }
+}
+$("#easy-share").addEventListener("click", shareApp);
 $("#easy-demo-end").addEventListener("click", endDemo);
 function easyScan(scope: ScanScope) {
   if (mode === "demo")
     return addDemoDevices(
       scope !== "all"
-        ? ["Ray-Ban Meta · 가상 예시"]
-        : ["AirPods Pro · 가상 예시", "이름 없는 기기 · 가상 예시"],
+        ? [
+            { name: "Ray-Ban Meta · 가상 예시" },
+            { name: "Rokid Glasses · 가상 예시" },
+            { name: "이름을 바꾼 기기 · 가상 예시", signal: true },
+          ]
+        : [
+            { name: "AirPods Pro · 가상 예시" },
+            { name: "이름 없는 기기 · 가상 예시" },
+          ],
     );
   scanScope = scope;
   easyNotice = "";

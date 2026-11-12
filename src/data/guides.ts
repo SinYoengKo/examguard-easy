@@ -243,6 +243,51 @@ export const guides: Guide[] = [
     sourcePhoto: "https://consumer.huawei.com/en/audio/huawei-eyewear-2/",
   },
   {
+    id: "rokid",
+    name: "Rokid Glasses",
+    category: "display",
+    label: "카메라 · 디스플레이",
+    sample: "rokid",
+    description:
+      "두꺼운 뿔테와 닮은 프레임. 앞면 한쪽 끝의 카메라와 렌즈 안쪽의 초록빛 화면을 확인하세요.",
+    glance: "앞면 한쪽 카메라 → 렌즈 안 초록 화면 → 안경다리 버튼·충전 단자",
+    points: [
+      "앞면 한쪽 끝(착용자 왼쪽)의 카메라",
+      "렌즈 안쪽에 비치는 초록색 화면",
+      "오른쪽 안경다리의 버튼과 다리 끝 충전 단자",
+    ],
+    features: [
+      {
+        location: "앞면 한쪽 끝",
+        title: "카메라",
+        detail:
+          "착용자 기준 왼쪽 관자놀이 쪽에 작은 카메라가 있습니다. 일반 뿔테의 장식 리벳과 비교하세요.",
+      },
+      {
+        location: "렌즈 안쪽",
+        title: "초록색 단색 화면",
+        detail:
+          "양쪽 렌즈에 초록색 글자가 표시됩니다. 밖에서는 잘 보이지 않지만 각도에 따라 희미한 윤곽이 비칠 수 있습니다.",
+      },
+      {
+        location: "안경다리",
+        title: "버튼·터치부·충전 단자",
+        detail:
+          "오른쪽 다리에 버튼이, 다리 끝에 자석식 충전 단자가 있습니다. 다리를 자주 만지는 동작도 단서입니다.",
+      },
+    ],
+    marks: "Rokid 표기 · 안쪽 모델명을 제품 자료와 대조",
+    power:
+      "카메라·화면·스피커 기능. 휴대전화와 연결해 쓰는 경우가 많으므로 주변에 켜진 휴대전화가 없는지도 함께 확인하세요.",
+    comparison:
+      "두꺼운 뿔테 안경과 닮았습니다. 카메라·렌즈 안쪽 화면·다리 끝 단자를 함께 확인하세요.",
+    caveat:
+      "제조사 공식 자료가 아니라 공개 리뷰를 바탕으로 한 관찰 안내입니다. 세부 형상은 모델·세대에 따라 다를 수 있습니다.",
+    source:
+      "https://www.engadget.com/wearables/rokids-smartglasses-are-surprisingly-capable-153027590.html",
+    sourceLabel: "Engadget 리뷰 (공식 자료 아님)",
+  },
+  {
     id: "normal",
     name: "일반 안경 · 외형 비교",
     category: "custom",

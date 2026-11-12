@@ -14,6 +14,10 @@ test("시연: 블루투스 없이 4단계를 끝까지 진행하고 흔적 없�
   );
   await page.locator("#easy-demo-start").click();
   await expect(page.locator("#easy-demo-bar")).toBeVisible();
+  await expect(page.locator("#easy-coach")).toHaveText(
+    "아래 3가지를 하나씩 눌러 보세요",
+  );
+  await expect(page.locator(".coach-target")).toHaveCount(3);
   await expect(page.locator("#easy-next")).toBeDisabled();
   for (const i of [0, 1, 2])
     await page.locator(`[data-preflight="${i}"]`).click();
@@ -23,18 +27,24 @@ test("시연: 블루투스 없이 4단계를 끝까지 진행하고 흔적 없�
   );
   await page.locator("#easy-scan-glasses").click();
   await page.locator("#easy-scan-all").click();
-  await expect(page.locator(".easy-card")).toHaveCount(3);
+  await expect(page.locator(".easy-card")).toHaveCount(5);
+  await expect(page.locator(".easy-card.red")).toHaveCount(3); // 이름 2 + 제조사 번호 1
   await expect(page.locator(".easy-card").first()).toHaveClass(/red/);
   await page
     .locator(".easy-card.red [data-easy-disposition='checked']")
+    .first()
     .click();
   await expect(page.locator(".easy-card.green")).toHaveCount(1);
   await page.locator("#easy-next").click();
   await expect(page.locator("#page-optical")).toBeVisible();
   await page.locator("#easy-tabs [data-page='guide']").click();
-  await expect(page.locator(".guide-card")).toHaveCount(6);
+  await expect(page.locator(".guide-card")).toHaveCount(7);
+  await expect(page.locator(".behavior-tips li")).toHaveCount(4);
+  await page.locator('[data-guide="rokid"]').click();
+  await expect(page.locator("dialog")).toContainText("초록색 단색 화면");
+  await page.locator(".dialog-close").click();
   await page.locator("#easy-next").click();
-  await expect(page.locator("#all-records li")).toHaveCount(3);
+  await expect(page.locator("#all-records li")).toHaveCount(5);
   // 휴대폰 폭에서도 가로로 넘치지 않아야 합니다
   expect(
     await page.evaluate(

@@ -56,7 +56,8 @@ export function easyCard(
     return {
       light: "red",
       title: "스마트안경일 수 있어요",
-      action: "기관 절차에 따라 안경을 교탁에 놓게 하고, 3단계에서 살펴보세요.",
+      action:
+        "기관 절차에 따라 안경을 교탁에 놓게 하고, 3단계에서 살펴보세요. 함께 쓰는 휴대전화가 숨겨져 있지 않은지도 확인하세요.",
     };
   if (kind === "other-device-hint")
     return {

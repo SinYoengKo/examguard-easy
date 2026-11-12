@@ -84,7 +84,7 @@ test("unsupported Android gets browser steps, usable alternatives and manual cop
   );
   await go(page, "wireless");
   await support.locator('[data-page="guide"]').click();
-  await expect(page.locator(".guide-card")).toHaveCount(6);
+  await expect(page.locator(".guide-card")).toHaveCount(7);
   await page.locator("#install-button").click();
   await expect(page.locator("dialog")).toContainText(
     "브라우저의 Bluetooth 제한은 바뀌지 않습니다",
@@ -191,7 +191,7 @@ test("core UI, preflight, training records, catalog, mobile layout and offline r
   expect(exported.inspections).toEqual([]);
   expect(exported.radioCapture).toBeNull();
   await go(page, "guide");
-  await expect(page.locator(".guide-card")).toHaveCount(6);
+  await expect(page.locator(".guide-card")).toHaveCount(7);
   await page.locator("#guide-search").fill("G1");
   await expect(page.locator(".guide-card")).toHaveCount(1);
   await page.locator(".guide-card").click();
@@ -219,7 +219,7 @@ test("core UI, preflight, training records, catalog, mobile layout and offline r
   await context.setOffline(true);
   await page.reload();
   await go(page, "guide");
-  await expect(page.locator(".guide-card")).toHaveCount(6);
+  await expect(page.locator(".guide-card")).toHaveCount(7);
   expect(errors).toEqual([]);
 });
 test("browser selection escaping, explicit classification and reset ignore delayed choices", async ({

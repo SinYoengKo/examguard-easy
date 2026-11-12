@@ -134,6 +134,10 @@ test("번호 단서: 이름이 달라도 제조사·서비스 번호로 뜬 기�
   assert.equal(matchesGlassesName("Rokid Glasses"), true);
   assert.equal(matchesGlassesName("Glasses_A1B2"), true);
   assert.equal(easyCard(device({ name: "Rokid Glasses" })).light, "red");
+  const { assessDeviceName } = await import("../src/lib/device-hints.ts");
+  const { guides } = await import("../src/data/guides.ts");
+  assert.deepEqual(assessDeviceName("Rokid Glasses").guideIds, ["rokid"]);
+  assert.ok(guides.some((g) => g.id === "rokid" && g.category === "display"));
   assert.equal(easyCard(device({ name: "Glasses_A1B2" })).light, "red");
   assert.equal(
     easyCard(device({ name: "Sunglasses Hut Speaker" })).light,
